@@ -4,43 +4,40 @@ Api functions it all functions from [https://core.telegram.org/bots/api](https:/
 
 You can use it with BJS.&#x20;
 
-### **Example 1.** Send audio to current chat
+### **Example 1.** Send message to current chat
 
 ```javascript
-Api.sendAudio({
-  audio: "https://www.bensound.org/bensound-music/bensound-funnysong.mp3"
+Api.sendMessage({
+text: "Hello!"
+})
+```
+
+### Send audio to other chat:
+
+```javascript
+Api.sendMessage({
+  chat_id: 1234567890,
+  text: "Hello!"
 });
 ```
 
-send audio to other chat:&#x20;
+
+
+You can pass allowed parameters. For example for [sendMessage](https://core.telegram.org/bots/api#sendaudio) it can be parse\_mode.
 
 ```javascript
-Api.sendAudio({
-  chat_id: 5515411,
-  audio: "https://www.bensound.org/bensound-music/bensound-funnysong.mp3"
-});
-```
-
-
-
-You can pass allowed parameters. For example for [sendAudio](https://core.telegram.org/bots/api#sendaudio) it can be title and disable\_notification
-
-```javascript
-Api.sendAudio({
-  audio: "https://www.bensound.org/bensound-music/bensound-funnysong.mp3"
-  title: "test audio",
-  disable_notification: true
+Api.sendMessage({
+text: "Hi",
+parse_mode: "markdown"
 });
 ```
 
 ### **Example 2.** Send photo with inline keyboard
 
-![](../.gitbook/assets/image.png)
-
 ```javascript
 // see all parameters in https://core.telegram.org/bots/api#sendphoto
 Api.sendPhoto({
-  photo: "https://cataas.com/cat", // it is picture!
+  photo: "URL of Image", // it is picture!
   caption: "Test photo",
 
   reply_markup: { inline_keyboard: [
@@ -71,11 +68,9 @@ For example get all user's profile photos:
 
 ```javascript
 Api.getUserProfilePhotos({
-    user_id: user.telegramid,
+    user_id: user.id,
     // this command will be executed after getting photos
-    on_result: "onGetProfilePhotos",
-    // you can pass any options for callback:
-    // bb_options: { your: "any", options: "here" }
+    on_result: "onGetProfilePhotos"
 });
 ```
 
@@ -84,9 +79,6 @@ Api.getUserProfilePhotos({
 #### Command `onGetProfilePhotos`
 
 ```javascript
-// you can inspect result:
-// Bot.inspect(options) 
-
 if(!options.ok){
    return Bot.sendMessage("Error!");
 }
@@ -109,11 +101,9 @@ for(let i in photos){
 It is possible to capture error with `on_error` param
 
 ```javascript
-Api.sendAudio({
-  audio: "https://www.bensound.org/bensound-music/bensound-funnysong.mp3",
-  on_error: "/on_error",
-  // you can pass any options for callback:
-  // bb_options: { your: "any", options: "here" }
+Api.sendMessage({
+  text: "Hello!",
+  on_error: "/on_error"
 });
 ```
 
@@ -122,7 +112,4 @@ In command `on_error`:
 ```javascript
 Bot.sendMessage("We have error with sending audio");
 Bot.inspect(options)
-
-// and passed bb_options:
-// Bot.inspect(options.bb_options)
 ```
