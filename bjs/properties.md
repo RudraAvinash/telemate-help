@@ -13,31 +13,14 @@ For example:
 Properties can be belong for user or for bot.
 {% endhint %}
 
-## Types
-
-Properties can be:
-
-* integer, e.g.: `150`
-* float, e.g.: `5.5`&#x20;
-* boolean: `true, false`
-* string, e.g.: `"Hello world"`
-* text, e.g.: `"it is very big text ..... 1000 symbols here or more"`
-* json, e.g.: `{ any: "data", here: "can", be: {used: true}, with: ["array", "too"] }`
-* datetime, e.g: `new Date()`
-
-
-
 ## Set property
 
 ```javascript
 // set global prop
-Bot.setProperty({ name: 'myProp', value: 15 });
+Bot.setProperty('myProp', 15);
  
 // set JSON prop for user
-User.setProperty({
- name: 'BIO',
- value: { email: "test@example.com", age: 10 }
-});
+User.setProperty('BIO', { email: "test@example.com", age: 10 });
 ```
 
 {% hint style="success" %}
@@ -49,42 +32,8 @@ also you can use old style:
 
 ```javascript
  // set global prop
-Bot.setProperty("myProp", 15, "float" });
+Bot.setProperty("myProp", 15);
 ```
-
-### Set prop for other user by id
-
-```javascript
- // set global prop
-Bot.setProperty({
-  name: 'otherUserProp',
-  value: "test Prop",
-  // you can pass other user.id for saving user prop for other user
-  user_id: other_user.id
-});
-```
-
-### Set prop for other user by telegramid
-
-```javascript
- // set global prop
-Bot.setProperty({
-  name: 'otherUserProp',
-  value: "test Prop",
-  // you can pass other user.id for saving user prop for other user
-  user_telegramid: other_user.telegramid
-});
-```
-
-{% hint style="success" %}
-You can set (or read) property via bot\_id and read (or set) it via telegramid. It doesn't matter and it will be the same value.
-{% endhint %}
-
-### You can save prop in the List
-
-Please read this [article](lists/)
-
-
 
 ## Get property
 
@@ -106,74 +55,13 @@ var myProp = Bot.getProperty('myProp', 15);
 ```
 
 
-
-### Getting other user's prop:
-
-{% hint style="info" %}
-Your bot must have this user
-{% endhint %}
-
-```javascript
-// get prop for other user
-var bio = Bot.getProperty({
-  name: 'BIO',
-  // you can pass other user.id for getting other user prop
-  user_id: other_user_id
-  // or by telegramid:
-  // user_telegramid: other_user_telegramid
-});
-```
-
-{% hint style="success" %}
-You can set (or read) property via bot\_id and read (or set) it via telegramid. It doesn't matter and it will be the same value.
-{% endhint %}
-
-###
-
-### Getting other bot prop for current user:
-
-{% hint style="info" %}
-Your account must have this bot
-{% endhint %}
-
-```javascript
-// get other bot prop for cur user
-var bio = Bot.getProperty({
-  name: 'BIO',
-  bot_id: other_bot_id  // available via bot.id
-  // if needed:
-  // user_id: userID // for user's prop
-  // user_telegramid: tgID // for user by telegramid
-});
-```
-
-
-
-### Getting other bot prop for other user:
-
-{% hint style="info" %}
-Your account must have this bot with this user
-{% endhint %}
-
-```javascript
-// get other bot prop for cur user
-var bio = Bot.getProperty({
-  name: 'BIO',
-  bot_id: other_bot_id  // available via bot.id
-  // you can pass other user.id for getting other user prop
-  user_id: other_user_id
-});
-```
-
-
-
 ## Delete property
 
 Pass `null` to prop's value for property deleting:
 
 ```javascript
 // prop "myProp" with null value will be removed
-Bot.setProperty("myProp", null, "float" });
+Bot.setProperty("myProp", null );
 ```
 
 
